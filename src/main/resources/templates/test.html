@@ -1,0 +1,44 @@
+<html >
+<head>
+  <meta charset="utf-8"/>
+  <title>test</title>
+ </head>
+  <body>
+  <div  id="testPage">
+        <form id="form" data-parsley-validate="true" onsubmit="return false">
+                  <div class="form-group has-feedback">
+                     <input type="text" placeholder="名称" v-model="username"  data-parsley-error-message="请输入名称" required="required" />
+
+                  </div>
+                  <button v-on:click="query" >查询</button>
+        </form>
+  </div>
+  </body>
+<script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/vue.min.js"></script>
+
+<script type='text/javascript'>
+    var loginPage = new Vue({
+        el: '#testPage',
+        data: {
+            'username': '',
+            'password': ''
+        },
+        methods: {
+            query: function(event){
+                var datas={
+                    username: this.username
+                };
+                $.post('/user/findByUsername',datas, function(response) {
+                    console.log(response);
+                })
+                /*this.$http.post('/user/findByUsername',datas).then(function(response){
+                    alert(response);
+                }, function(response){
+                    console.log('error');
+                })*/
+            }
+        }
+    })
+</script>
+</html>
