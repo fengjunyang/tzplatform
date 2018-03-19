@@ -2,9 +2,10 @@ package com.topcheer.controller;
 
 import com.topcheer.dao.jpa.UserRepository;
 import com.topcheer.model.User;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,9 +23,11 @@ public class UserController {
         return "/test";
     }
 
+    @ApiOperation(value="查找用户", notes="根据User对象名称查找用户",response =User.class )
+    @ApiImplicitParam(name = "username", value = "名称", required = true, dataType = "String",paramType = "form")
     @RequestMapping(value = "/findByUsername", method = RequestMethod.POST)
     @ResponseBody
-    public User findByUsername(Model model,String username){
+    public User findByUsername(String username){
         return userRepository.findByUsername(username);
 
     }
